@@ -1,0 +1,65 @@
+.button {
+	background-color: #90ee90;
+  	color: #000000;
+  	border-radius: 4px;
+}
+
+.big-btn {
+  	width: 90px;
+  	height: 40px;
+}
+
+.hiddenMsg {
+  	display: none;
+}
+
+.screenshot {
+  	height: 200px;
+  	display: block;
+}
+
+#top {
+	background-color: #90ee90;
+}
+
+#user {
+	float: right;
+	margin: 10px;
+}
+
+.saveButton {
+	float: right;
+}
+
+.flexColumns {
+	display: flex;
+	flex-direction: row;
+}
+
+.column {
+	margin: 10px;
+	flex: 200px;
+}
+
+.playerDetails {
+	background-color: #90ee90;
+}
+
+.sideColumn {
+	margin: 10px;
+	flex: 100px;
+}
+
+.dataContainer {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 10px;
+	gap: 10px;
+}
+
+.pageCenter {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+}
+

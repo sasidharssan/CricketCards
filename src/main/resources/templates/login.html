@@ -1,0 +1,34 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head> <title> Cricket-Cards - login </title> </head>
+	<body>
+		<h1> Login </h1>
+		
+		<div th:if="${param.error}" style='color: red;'>    
+                    Invalid room ID or password.
+        </div>	
+        	
+		<div th:if="${(param.userError != null) and (param.userError[0] == 'alreadylogged')}" style='color: red;'>    
+                    User is Already logged In.
+        </div>
+        	
+		<div th:if="${(param.userError != null) and (param.userError[0] == 'tooManyUsers')}" style='color: red;'>    
+                    Too many users in a room
+        </div>
+        	
+		<div th:if="${(param.userError != null) and (param.userError[0] == 'nameExists')}" style='color: red;'>    
+                    Please choose another name, as username is already taken
+        </div>
+
+<br>
+		<form name="f" th:action="@{/login}" method="post">
+			<label for="username"> User Name: </label>
+			<input type="text" id="user" name="user"><br><br>
+			<label for="roomId"> Room ID: </label>
+			<input type="text" id="username" name="username"><br><br>
+			<label for="password"> Password: </label>
+			<input type="password" id="password" name="password"><br><br>
+			<input type="submit" value="Play Now!">
+			<button><a th:href="@{/register}"> Create a new room</a> </button>
+		</form>
+	</body>
+</html>

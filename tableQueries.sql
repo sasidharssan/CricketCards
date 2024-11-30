@@ -1,0 +1,40 @@
+create table rooms (
+room_id varchar(20) primary key,
+password varchar(255) NOT NULL,
+users INT[2],
+DATE DATE NOT NULL
+);
+
+create table cric_stats (
+player_id SERIAL PRIMARY KEY,
+player_name VARCHAR(20) NOT NULL,
+PLAYER_DESIGNATION VARCHAR(20) NOT NULL,
+matches INT NOT NULL,
+runs INT,
+balls_faced INT,
+HIGHEST_SCORE INT,
+STRIKE_RATE REAL,
+AVERAGE REAL,
+CENTURIES INT,
+WICKETS INT,
+BOWLING_BEST VARCHAR(6),
+FIFERS INT,
+BALLS_BOWLED INT,
+ECONOMY REAL,
+BOWLING_AVG REAL
+);
+
+CREATE TABLE USER_STACK (
+	user_id SERIAL PRIMARY KEY,
+	room_id varchar(20) REFERENCES rooms(room_id) ON DELETE CASCADE,
+	USERNAME VARCHAR(20) NOT NULL,
+	STACK INT[],
+	logged_in int not null default 0
+);
+
+CREATE TABLE GAME_INFO (
+	room_id varchar(20) REFERENCES rooms(room_id) ON DELETE CASCADE UNIQUE,
+	USER_ID int NOT NULL REFERENCES USER_STACK(user_id) ON DELETE CASCADE,
+	CURRENT_CARD INT,
+	OPTION_CLICKED VARCHAR(20)
+);

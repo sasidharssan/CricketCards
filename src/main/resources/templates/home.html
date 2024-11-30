@@ -1,0 +1,155 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head> 
+		<title> Home </title>
+		<script type="text/javascript" th:src="@{/js/home.js}"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+		<script type="text/javascript" th:src="@{/js/socket.js}"></script>
+		<link rel="stylesheet" th:href="@{/css/main.css}" />
+	</head>
+	<body>
+		<div id="top">
+		<p id="user">You are logged in as <span id="usernamePrint" th:text = "${username}"></span><br>
+		Users in the room: <span th:text = "${allUsers}"></span></p>
+		<br>
+			<h1> Welcome to <span th:text = "${roomId}"></span></h1>			
+			<form th:action="@{/logoutProcess}" method="post">
+				<input type="hidden" th:value="${roomId}" id= "roomId" name= "roomId">
+				<input type="hidden" th:value="${username}" id= "username" name="username">
+				<input type="hidden" th:value="${userId}" id= "userId">
+				<input type="hidden" th:value="1" name= "saveStatus">
+				<input type="submit" class="button saveButton" value="Save & Exit">
+			</form>
+		</div>
+		<p id="count">count: <span th:text = "${count}"></span></p>
+		<p id="displayResult"></p>
+		<h3 id="final"></h3>
+		<p id="firstPlayer" th:text= "${firstPlayer}" style="display:none;"></p>
+		<br>
+		<div class="flexColumns">
+		<div class="sideColumn">
+			
+		</div>
+		<div class="column" id="myPlayer">
+		<div class="playerDetails">
+			<h3 id="playerName1"><span th:text = "${player1.name}"></span></h3>
+			<div id="designation1">
+			<span th:text = "${player1.designation}"></span>
+			</div>
+		</div>
+			<div class="dataContainer">
+				<div class="gridColumn">
+					<div>Matches:</div>
+					<div>Runs:</div>
+					<div>Strike Rate:</div>
+					<div>Balls Faced</div>
+					<div>Highest:</div>
+					<div>Batting Avg:</div>
+					<div>100s:</div>
+					<div>Wickets</div>
+					<div>Bowling Best:</div>
+					<div>Balls Bowled:</div>
+					<div>Economy:</div>
+					<div>Bowling Avg:</div>
+					<div>5-wickets:</div>
+				</div>
+				<div class="gridColumn">
+					<div id="matches1"><span th:text = "${player1.matches}"></span></div>
+					<div id = "runs1"><span th:text = "${player1.runs}"></span></div>
+					<div id="strikeRate1"><span th:text = "${player1.strikeRate}"></span></div>
+					<div id="ballsFaced1"><span th:text = "${player1.ballsFaced}"></span></div>
+					<div id="highest1"><span th:text = "${player1.highest}"></span></div>
+					<div id="batAverage1"><span th:text = "${player1.batAverage}"></span></div>
+					<div id="centuries1"><span th:text = "${player1.centuries}"></span></div>
+					<div id="wickets1"><span th:text = "${player1.wickets}"></span></div>
+					<div id="best1"><span th:text = "${player1.best}"></span></div>
+					<div id="ballsBowled1"><span th:text = "${player1.ballsBowled}"></span></div>
+					<div id="economy1"><span th:text = "${player1.economy}"></span></div>
+					<div id="bowlAverage1"><span th:text = "${player1.bowlAverage}"></span></div>
+					<div id="fifers1"><span th:text = "${player1.fifers}"></span></div>
+				</div>
+			</div>
+		</div>
+		<div class="column" id="oppPlayer">
+		<div class="playerDetails">
+			<h3 id="playerName2"></h3>
+			<div id="designation2"></div>
+		</div>
+			<div class="dataContainer">
+				<div class="gridColumn">
+					<div>Matches:</div>
+					<div>Runs:</div>
+					<div>Strike Rate:</div>
+					<div>Balls Faced</div>
+					<div>Highest:</div>
+					<div>Batting Avg:</div>
+					<div>100s:</div>
+					<div>Wickets</div>
+					<div>Bowling Best:</div>
+					<div>Balls Bowled:</div>
+					<div>Economy:</div>
+					<div>Bowling Avg:</div>
+					<div>5-wickets:</div>
+				</div>
+				<div class="gridColumn">
+					<div id="matches2"></div>
+					<div id = "runs2"></div>
+					<div id="strikeRate2"></div>
+					<div id="ballsFaced2"></div>
+					<div id="highest2"></div>
+					<div id="batAverage2"></div>
+					<div id="centuries2"></div>
+					<div id="wickets2"></div>
+					<div id="best2"></div>
+					<div id="ballsBowled2"></div>
+					<div id="economy2"></div>
+					<div id="bowlAverage2"></div>
+					<div id="fifers2"></div>
+				</div>
+			</div>
+		</div>
+		<div class="sideColumn">
+		<div id="drawCardBlock">
+			<button id="drawCardBtn" type="button">Draw Card</button>
+		</div>
+		<div id="placeBlock">
+			<button id="placeBtn" type="button">Place Card</button>
+		</div>
+		<div id="resultBlock">
+			<button id="resultBtn" type="button">See Results</button>
+		</div>
+		<div id="submitBlock">
+			<form id="submitForm">
+			<label>Option: </label>
+			<select id="option">
+				<option value="matches">Matches</option>
+				<option value="runs">Runs</option>
+				<option value="strikeRate">Strike Rate</option>
+				<option value="ballsFaced">Balls Faced</option>
+				<option value="highest">Highest</option>
+				<option value="batAverage">Batting Avg.</option>
+				<option value="centuries">100s</option>
+				<option value="wickets">Wickets Taken</option>
+				<option value="best">Best Figures</option>
+				<option value="fifers">5 Wickets</option>
+				<option value="ballsBowled">Balls Bowled</option>
+				<option value="economy">Economy</option>
+				<option value="bowlingAverage">Bowl Avg.</option>
+			</select>
+			<button id="submitBtn" type="submit">Submit</button>
+			</form>
+		</div>
+		
+		</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+	document.addEventListener('readystatechange', event => { 
+	    // When window loaded ( external resources are loaded too- `css`,`src`, etc...) 
+	    if (event.target.readyState === "complete") {
+	    	loggedIn = 1;
+	    	checkAndConnect();
+	    }
+	});
+	</script>
+	<script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
+</html>
