@@ -1,14 +1,8 @@
 const hostAddress = location.host;
 const url = "ws://"+ hostAddress +"/spring-boot-cardgame";
-const joinedUrl = "/topic/joined";
 const preUrl = "/user/";
-const appJoined = "/app/joined";
-const submittedUrl = "/topic/submitted";
-const appSubmitted = "/app/submitted";
-const placedUrl = "/topic/placed";
-const appPlaced = "/app/placed";
-const disconnectUrl = "/topic/disconnect";
-const appDisconnect = "/app/disconnect";
+const signalUrl = "/topic/signal";
+const appSignal = "/app/signal";
 var loggedIn = 0;
 
 
@@ -68,21 +62,10 @@ client.onConnect = (frame) => {
     console.log('Connected: ' + frame);
     user = new User(uid.value, username.value, roomId.value);
     
-    client.subscribe(preUrl + user.userId + joinedUrl, (message) => {
-    	showJoined(JSON.parse(message.body));
+    client.subscribe(preUrl + user.userId + signalUrl, (message) => {
+    	showResult(JSON.parse(message.body));
     });
-	
-	client.subscribe(preUrl + user.userId + submittedUrl, (message) => {
-		showSubmitted(JSON.parse(message.body));
-	});
-	
-	client.subscribe(preUrl + user.userId + placedUrl, (message) => {
-		showPlaced(JSON.parse(message.body));
-	});
-	
-	client.subscribe(preUrl + user.userId + disconnectUrl, (message) => {
-		showDisconnect(JSON.parse(message.body));
-	});
+
 	if(loggedIn == 0) {
 		if(document.getElementById("firstUser").textContent == "n")
 			sendConnectMsg();
@@ -102,20 +85,22 @@ function disconnect() {
 	console.log('disconnected');	
 }
 
-function showJoined(message) {
+function showResult(message) {
 	if(message.signal == 'JOINED') {
 		document.getElementById('startGame').disabled = false;
 		document.getElementById('waitMsg').textContent = message.user.username 
 			+ ' has joined';
 	}
-}
-
-function sendConnectMsg() {
-	message = new Message(user, 'JOINED');
-		client.publish({
-			destination: appJoined,
-			body: JSON.stringify(message)
-		})
+	if(message.signal == 'SUBMITTED') {
+		document.getElementById('resultBtn').disabled = false;
+		document.getElementById('placeBtn').disabled = 'true';
+	}
+	if(message.signal == 'PLACED') {
+		document.getElementById('submitBtn').disabled = false;
+	}
+	if(message.signal == 'DISCONNECTED') {
+		alert(message.user.username + ' is disconnected!')
+	}
 }
 
 function awaitConnect(retries) {
@@ -136,45 +121,34 @@ function checkAndConnect() {
 	}
 }
 
-function showSubmitted(message) {
-	if(message.signal == 'SUBMITTED') {
-		document.getElementById('resultBtn').disabled = false;
-		document.getElementById('placeBtn').disabled = 'true';
-	}
+function sendConnectMsg() {
+	message = new Message(user, 'JOINED');
+		client.publish({
+			destination: appSignal,
+			body: JSON.stringify(message)
+		})
 }
 
 function sendSubmitMsg() {
 	message = new Message(user, 'SUBMITTED');
 		client.publish({
-			destination: appSubmitted,
+			destination: appSignal,
 			body: JSON.stringify(message)
 		})
-}
-
-function showPlaced(message) {
-	if(message.signal == 'PLACED') {
-		document.getElementById('submitBtn').disabled = false;
-	}
 }
 
 function sendPlacedMsg() {
 	message = new Message(user, 'PLACED');
 		client.publish({
-			destination: appPlaced,
+			destination: appSignal,
 			body: JSON.stringify(message)
 		})
-}
-
-function showDisconnect(message) {
-	if(message.signal == 'DISCONNECTED') {
-		alert(message.user.username + ' is disconnected!')
-	}
 }
 
 function sendDisconnectMsg() {
 	message = new Message(user, 'DISCONNECTED');
 		client.publish({
-			destination: appDisconnect,
+			destination: appSignal,
 			body: JSON.stringify(message)
 		})
 }

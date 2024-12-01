@@ -39,37 +39,21 @@ public class SocketController {
 		System.out.println("Session Disconnect Event");
 	}
 	
-	public void sendMessage(Message message, String url) {
+	@MessageMapping("/signal")
+	public void sendSignal(Message message) {
 		String roomId = message.user().getRoom();
 		int userId = message.user().getUserId();
 		int receiverId = 0;
 		Message newMessage = new Message(new User("0", message.user().getUsername(), 
 				roomId, null, message.user().getLoggedIn()), 
 				message.signal());
+		if(message.signal() == "DISCONNECTED") {
+			roomService.changeLoginStatus(message.user().getUsername(), 
+					message.user().getRoom(), 2);
+		}
 		receiverId = roomService.findOtherUser(roomId, userId);
-		simpMessagingTemplate.convertAndSendToUser(String.valueOf(receiverId), "/topic"+url, newMessage);
+		simpMessagingTemplate.convertAndSendToUser(String.valueOf(receiverId), "/topic/signal", newMessage);
 	}
 	
-	@MessageMapping("/joined")
-	public void getJoinedMessage(Message message) {
-		sendMessage(message, "/joined");
-	}
-	
-	@MessageMapping("/submitted")
-	public void getSubmitMessage(Message message) {
-		sendMessage(message, "/submitted");
-	}
-	
-	@MessageMapping("/placed")
-	public void getPlacedMessage(Message message) {
-		sendMessage(message, "/placed");
-	}
-	
-	@MessageMapping("/disconnect")
-	public void getDisconnectMessage(Message message) {
-		sendMessage(message, "/disconnect");
-		roomService.changeLoginStatus(message.user().getUsername(), 
-				message.user().getRoom(), 2);
-	}
 	
 }
