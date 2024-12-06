@@ -48,6 +48,7 @@
 .sideColumn {
 	margin: 10px;
 	flex: 100px;
+	position: relative;
 }
 
 .dataContainer {
@@ -61,5 +62,20 @@
 	position: fixed;
 	top: 50%;
 	left: 50%;
+}
+
+#chatBtn {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+#chat-popup {
+  position: fixed;
+  right: 15px;
+  height: 50%;
+  width: 20%;
+  border: blue;
+  overflow-y: scroll;
 }
 

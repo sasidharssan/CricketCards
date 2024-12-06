@@ -3,6 +3,8 @@ const url = "ws://"+ hostAddress +"/spring-boot-cardgame";
 const preUrl = "/user/";
 const signalUrl = "/topic/signal";
 const appSignal = "/app/signal";
+const chatUrl = "/topic/chat";
+const appChat = "/app/chat";
 var loggedIn = 0;
 
 
@@ -45,9 +47,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	username = document.getElementById('username');
 	roomId = document.getElementById('roomId');
 	uid = document.getElementById('userId');
-	connectButton = document.getElementById('connect');
-	beforeConnect = document.getElementById('beforeConnect');
-	afterConnect = document.getElementById('afterConnect');
 	
 	if(document.getElementById("firstUser").textContent == "n")
 		document.getElementById("waitMsg").style.display = "none";
@@ -65,6 +64,10 @@ client.onConnect = (frame) => {
     client.subscribe(preUrl + user.userId + signalUrl, (message) => {
     	showResult(JSON.parse(message.body));
     });
+	
+	client.subscribe(preUrl + user.userId + chatUrl, (message) => {
+	    showChatMessage(JSON.parse(message.body));
+	});
 
 	if(loggedIn == 0) {
 		if(document.getElementById("firstUser").textContent == "n")
@@ -151,4 +154,20 @@ function sendDisconnectMsg() {
 			destination: appSignal,
 			body: JSON.stringify(message)
 		})
+}
+
+function sendChatMsg() {
+	chatMessage = document.forms["chatForm"]["message"].value;
+	message = new Message(user, chatMessage);
+		client.publish({
+			destination: appChat,
+			body: JSON.stringify(message)
+		})
+}
+
+function showChatMessage(message) {
+	chatMessage = message.signal;
+	sender = message.user.username
+	document.getElementById("chats").innerHTML += "<p><span style='color:blue;'>"
+		+ sender + "</span>: " + chatMessage + "<br>";
 }

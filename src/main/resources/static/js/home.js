@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	count = document.getElementById("count");
 	displayResult = document.getElementById("displayResult");
 	final = document.getElementById("final");
+	chatForm = document.getElementById("chatForm");
+	chatBtn = document.getElementById("chatBtn");
+	chatPop = document.getElementById("chat-popup");
+	closeChatBtn = document.getElementById("closeChatBtn");
 	
 	firstPlayerDisplay();
 	
@@ -52,6 +56,23 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById('usernamePrint').textContent += "👑";
 	}
 	
+	chatPop.style.display ="none";
+
+	chatBtn.addEventListener("click", (e) => {
+		chatPop.style.display = "block";
+	});	
+	
+	closeChatBtn.addEventListener("click", (e) => {
+		chatPop.style.display = "none";
+	});
+	
+	chatForm.addEventListener("submit", (e) => {
+		e.preventDefault();
+		document.getElementById("chats").innerHTML += "<p><span style='color:purple;'>"
+				+ username.value + "</span>: " + chatForm.elements["0"].value + "<br>";
+		sendChatMsg();
+	});
+
 });
 	
 

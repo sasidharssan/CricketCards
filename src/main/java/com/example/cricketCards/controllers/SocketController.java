@@ -55,5 +55,17 @@ public class SocketController {
 		simpMessagingTemplate.convertAndSendToUser(String.valueOf(receiverId), "/topic/signal", newMessage);
 	}
 	
+	@MessageMapping("/chat")
+	public void sendChatMessage(Message message) {
+		String roomId = message.user().getRoom();
+		int userId = message.user().getUserId();
+		int receiverId = 0;
+		Message newMessage = new Message(new User("0", message.user().getUsername(), 
+				roomId, null, message.user().getLoggedIn()), 
+				message.signal());
+		receiverId = roomService.findOtherUser(roomId, userId);
+		simpMessagingTemplate.convertAndSendToUser(String.valueOf(receiverId), "/topic/chat", newMessage);
+	}
+	
 	
 }
