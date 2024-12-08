@@ -1,13 +1,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<head><title> Create New Room </title></head>
-	<body>
-		<h1> Create New Room </h1>
+	<head>
+	<title> Create New Room </title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+	</head>
+	<body th:style="'background-image:url(/img/cricketField.jpeg)'" class="homeBody">
+		<div id="top"><h1> Create New Room </h1></div>
+		<div class="formStyle">
+		<br>
 		<form name="form" th:action="@{/register}" method="post">
 			<label for="roomId"> Room ID: </label>
-			<input type="text" id="roomId" name="roomId"><br>
+			<input type="text" id="roomId" name="roomId"><br><br>
 			<label for="password"> Password: </label>
-			<input type="password" id="password" name="password"><br>
+			<input type="password" id="password" name="password"><br><br>
 			<input type="submit" value="Submit!">
 		</form>
+		</div>
 	</body>
 </html>

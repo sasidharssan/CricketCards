@@ -123,6 +123,7 @@ public class GameController {
 		
 		result.setOppPlayer(oppPlayer);
 		result.setCardCount(cardCount);
+		result.setOption(option);
 		return ResponseEntity.ok(result);
 		
 	}

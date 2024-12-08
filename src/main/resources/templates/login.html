@@ -1,7 +1,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<head> <title> Cricket-Cards - login </title> </head>
-	<body>
-		<h1> Login </h1>
+	<head> 
+		<title> Cricket Attacks - login </title> 
+		<link rel="stylesheet" th:href="@{/css/main.css}" />
+	</head>
+	<body th:style="'background-image:url(/img/devilliers.jpg)'" class="homeBody">
+	<div id=top>
+		<h1> Cricket Attacks </h1>
+	</div>
+	
+	<div class="formStyle">
 		
 		<div th:if="${param.error}" style='color: red;'>    
                     Invalid room ID or password.
@@ -21,14 +28,15 @@
 
 <br>
 		<form name="f" th:action="@{/login}" method="post">
-			<label for="username"> User Name: </label>
+			<label for="user"> User Name: </label>
 			<input type="text" id="user" name="user"><br><br>
-			<label for="roomId"> Room ID: </label>
+			<label for="username"> Room ID: </label>
 			<input type="text" id="username" name="username"><br><br>
 			<label for="password"> Password: </label>
 			<input type="password" id="password" name="password"><br><br>
 			<input type="submit" value="Play Now!">
 			<button><a th:href="@{/register}"> Create a new room</a> </button>
 		</form>
+	</div>
 	</body>
 </html>

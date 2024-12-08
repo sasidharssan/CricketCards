@@ -125,13 +125,14 @@ function submitCard() {
 			cardCount = data.cardCount;
 			drawCardBtn.disabled = false;
 			oppPlayer.style.display = "inline";
+			gameOption = option.value;
 			fillPlayers(player, '2');
 			count.textContent = "count: " + cardCount;
 			firstPlayer.textContent = winner;
 			sendSubmitMsg();
 			resultBtn.disabled = 'true';
 			submitBtn.disabled = 'true';
-			printResult(winner, cardCount);
+			printResult(winner, cardCount, gameOption);
 		}
 	})
 }
@@ -153,6 +154,7 @@ function seeResult() {
 			player = data.oppPlayer;
 			winner = data.winnerUser;
 			cardCount = data.cardCount;
+			gameOption = data.option;
 			drawCardBtn.disabled = false;
 			oppPlayer.style.display = "inline";
 			fillPlayers(player, '2');
@@ -161,7 +163,7 @@ function seeResult() {
 			placeBtn.disabled = 'true';
 			resultBtn.disabled = 'true';
 			submitBtn.disabled = 'true';
-			printResult(winner, cardCount);
+			printResult(winner, cardCount, gameOption);
 		}
 	})
 }
@@ -197,15 +199,15 @@ function firstPlayerDisplay() {
 	}
 }
 
-function printResult(winner, cardCount) {
+function printResult(winner, cardCount, gameOption) {
 	if(winner == uid.value) {
-		displayResult.textContent = 'New Card Added!';
+		displayResult.textContent = 'New Card Added! ' + gameOption + ' is chosen';
 	} else {
-		displayResult.textContent = 'You lost a card!';
+		displayResult.textContent = 'You lost a card! ' + gameOption + ' is chosen';
 	}
 	if(cardCount == 0) {
-		final.textContent = 'YOU LOST THE GAME!';
+		final.textContent = 'YOU LOST THE GAME! ' + gameOption + ' is chosen';
 	} else if(cardCount == 8) {
-		final.textContent = 'YOU WON THE GAME!';
+		final.textContent = 'YOU WON THE GAME! ' + gameOption + ' is chosen';
 	}	
 }

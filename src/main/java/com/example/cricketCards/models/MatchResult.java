@@ -4,7 +4,14 @@ public class MatchResult {
 	private CricketPlayer oppPlayer;
 	private int winnerUser;
 	private int cardCount;
+	private String option;
 
+	public String getOption() {
+		return option;
+	}
+	public void setOption(String option) {
+		this.option = option;
+	}
 	public int getWinnerUser() {
 		return winnerUser;
 	}

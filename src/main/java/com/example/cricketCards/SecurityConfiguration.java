@@ -31,6 +31,8 @@ public class SecurityConfiguration {
 		http.csrf(customizer -> customizer.disable())
 			.authorizeHttpRequests(request -> request
 					.requestMatchers("/register").permitAll()
+					.requestMatchers("/img/**").permitAll()
+					.requestMatchers("/css/**").permitAll()
 					.anyRequest().authenticated())
 			.formLogin(formLogin ->
 					formLogin.loginPage("/login")

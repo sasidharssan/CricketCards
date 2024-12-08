@@ -6,12 +6,13 @@
 		<script type="text/javascript" th:src="@{/js/socket.js}"></script>
 		<link rel="stylesheet" th:href="@{/css/main.css}" />
 	</head>
-	<body>
+	<body th:style="'background-image:url(/img/cricketField.jpeg)'" class="homeBody">
 		<div id="top">
-		<p id="user">You are logged in as <span id="usernamePrint" th:text = "${username}"></span><br>
+		<p id="usernameText">You are logged in as <span id="usernamePrint" th:text = "${username}"></span><br>
 		Users in the room: <span th:text = "${allUsers}"></span></p>
 		<br>
-			<h1> Welcome to <span th:text = "${roomId}"></span></h1>			
+		<h1>Cricket Attacks</h1>
+			<h3> Welcome to <span th:text = "${roomId}"></span></h3>			
 			<form th:action="@{/logoutProcess}" method="post">
 				<input type="hidden" th:value="${roomId}" id= "roomId" name= "roomId">
 				<input type="hidden" th:value="${username}" id= "username" name="username">
@@ -119,7 +120,7 @@
 		</div>
 		<div id="submitBlock">
 			<form id="submitForm">
-			<label>Option: </label>
+			<label style="color: white; font-weight:bold;">Option: </label>
 			<select id="option">
 				<option value="matches">Matches</option>
 				<option value="runs">Runs</option>

@@ -1,3 +1,8 @@
+.homeBody{
+	background-size: cover;
+}
+
+
 .button {
 	background-color: #90ee90;
   	color: #000000;
@@ -19,10 +24,16 @@
 }
 
 #top {
-	background-color: #90ee90;
+	color: pink;
+	font-family: 'Courier New', monospace;
 }
 
-#user {
+#old-top {
+	background-color: #90ee90;
+	font-family: 'Courier New', monospace;
+}
+
+#usernameText {
 	float: right;
 	margin: 10px;
 }
@@ -43,6 +54,7 @@
 
 .playerDetails {
 	background-color: #90ee90;
+	padding: 5px;
 }
 
 .sideColumn {
@@ -56,12 +68,18 @@
 	grid-template-columns: 1fr 1fr;
 	grid-gap: 10px;
 	gap: 10px;
+	background-color: white;
+	padding: 5px;
 }
 
-.pageCenter {
-	position: fixed;
-	top: 50%;
-	left: 50%;
+.formStyle {
+	display: grid;
+	place-items: center;
+	background-color: white;
+	padding: 5px;
+	border: 3px green;
+	width: 25%;
+	border-radius: 10px;
 }
 
 #chatBtn {
@@ -75,7 +93,17 @@
   right: 15px;
   height: 50%;
   width: 20%;
-  border: blue;
+  background-color: white;
   overflow-y: scroll;
+  padding: 5px;
+  border: 2px green;
+  border-radius: 10px;
 }
 
+#count{
+	color: white;
+}
+
+#displayResult{
+	color: pink;
+}
