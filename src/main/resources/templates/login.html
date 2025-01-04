@@ -3,9 +3,9 @@
 		<title> Cricket Attacks - login </title> 
 		<link rel="stylesheet" th:href="@{/css/main.css}" />
 	</head>
-	<body th:style="'background-image:url(/img/devilliers.jpg)'" class="homeBody">
+	<body th:style="'background-image:url(' + @{/img/new_ground.jpeg} + ');'" class="homeBody">
 	<div id=top>
-		<h1> Cricket Attacks </h1>
+		<h1 style="font-weight: bold; color: blue;"> Cricket Attacks </h1>
 	</div>
 	
 	<div class="formStyle">
@@ -27,7 +27,7 @@
         </div>
 
 <br>
-		<form name="f" th:action="@{/login}" method="post">
+		<form name="f" th:action="@{/}" method="post">
 			<label for="user"> User Name: </label>
 			<input type="text" id="user" name="user"><br><br>
 			<label for="username"> Room ID: </label>
@@ -38,5 +38,10 @@
 			<button><a th:href="@{/register}"> Create a new room</a> </button>
 		</form>
 	</div>
+	<audio id="bgAudio" th:src="@{/sounds/time_machine-waterflame.mp3}" autoplay loop></audio>
 	</body>
+	<script>
+  		var audio = document.getElementById("bgAudio");
+  		audio.volume = 0.1;
+	</script>
 </html>

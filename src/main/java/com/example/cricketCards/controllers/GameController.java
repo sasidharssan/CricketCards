@@ -34,11 +34,10 @@ public class GameController {
 	@Autowired
 	private CricketService cricketService;
 	
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String homepage(@RequestParam(name="roomId") String id, 
-			@RequestParam(name="userId") String uid, Model model,
-			HttpSession session) {
-		int userId = Integer.parseInt(uid);
+	@RequestMapping(value = "/cricAttacksGame", method = RequestMethod.GET)
+	public String homepage(Model model, HttpSession session) {
+		String id = (String) session.getAttribute("roomId");
+		int userId = (int) session.getAttribute("userId");
 		List<String> userNames = roomService.getUserNames(id);
 		User user = stackService.getUserById(userId);
 		String uname = user.getUsername();
@@ -48,21 +47,23 @@ public class GameController {
 		int firstPlayer = stackService.getFirstPlayer(id).getUserId();
 		int cardCount = stackService.getCardCount(userId);
 		
-		model.addAttribute("userId", uid);
+		System.out.println(session.getAttribute("username"));
+		
+		model.addAttribute("userId", userId);
 		model.addAttribute("roomId", id);
 		model.addAttribute("username", uname);
 		model.addAttribute("allUsers", userNames);
 		model.addAttribute("player1", player1);
 		model.addAttribute("firstPlayer", firstPlayer);
 		model.addAttribute("count", cardCount);	
-		return "home.html";
+		return "cricAttacksGame.html";
 	}
 	
 	@PostMapping(value = "/submit")
-	public ResponseEntity<MatchResult> submitCard(@RequestParam String roomId, 
-			@RequestParam String uid, 
+	public ResponseEntity<MatchResult> submitCard(HttpSession session,
 			@RequestParam String option) {
-		int userId = Integer.parseInt(uid);
+		String roomId = (String) session.getAttribute("roomId");
+		int userId = (int) session.getAttribute("userId");
 		MatchResult result = new MatchResult();
 		int otherUser = roomService.findOtherUser(roomId, userId);
 		int myTopCardId = stackService.getTopCard(userId);
@@ -84,14 +85,21 @@ public class GameController {
 		
 		result.setOppPlayer(oppPlayer);
 		result.setCardCount(cardCount);
+		if(cardCount == 0) {
+			result.setFinalResult("LOST");
+		} else if(cardCount == 16)  {
+			result.setFinalResult("WON");
+		} else {
+			result.setFinalResult("GAMEON");
+		}
 		return ResponseEntity.ok(result);
 		
 	}
 	
 	@PostMapping(value = "/result")
-	public ResponseEntity<MatchResult> getResult(@RequestParam String roomId, 
-			@RequestParam String uid) {
-		int userId = Integer.parseInt(uid);
+	public ResponseEntity<MatchResult> getResult(HttpSession session) {
+		String roomId = (String) session.getAttribute("roomId");
+		int userId = (int) session.getAttribute("userId");
 		MatchResult result = new MatchResult();
 		int myTopCardId = stackService.getTopCard(userId);
 		GameInfo game = stackService.getFirstPlayer(roomId);
@@ -124,14 +132,21 @@ public class GameController {
 		result.setOppPlayer(oppPlayer);
 		result.setCardCount(cardCount);
 		result.setOption(option);
+		if(cardCount == 0) {
+			result.setFinalResult("LOST");
+		} else if(cardCount == 16)  {
+			result.setFinalResult("WON");
+		} else {
+			result.setFinalResult("GAMEON");
+		}
 		return ResponseEntity.ok(result);
 		
 	}
 	
 	@PostMapping(value = "/drawCard")
-	public ResponseEntity<CricketPlayer> drawCard(@RequestParam String roomId, 
-			@RequestParam String uid) {
-		int userId = Integer.parseInt(uid);
+	public ResponseEntity<CricketPlayer> drawCard(HttpSession session) {
+		String id = (String) session.getAttribute("roomId");
+		int userId = (int) session.getAttribute("userId");
 		int topCardId = stackService.getTopCard(userId);
 		CricketPlayer topCard = cricketService.getPlayerWithId(topCardId);
 		return ResponseEntity.ok(topCard);

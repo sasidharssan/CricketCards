@@ -18,3 +18,15 @@ INSERT INTO CRIC_STATS(player_name,player_designation,matches,runs,balls_faced,h
 
 INSERT INTO CRIC_STATS(player_name,player_designation,matches,runs,balls_faced,highest_score,strike_rate,average,centuries,wickets,bowling_best,fifers,balls_bowled,economy,bowling_avg) VALUES ('Chris Gayle', 'Left Hand Batsman', 301, 10480, 12019, 215, 87.19, 37.83, 25, 167, '5/46', 1, 7424, 4.78, 35.48);
 
+INSERT INTO CRIC_STATS(player_name,player_designation,matches,runs,balls_faced,highest_score,strike_rate,average,centuries,wickets,bowling_best,fifers,balls_bowled,economy,bowling_avg) VALUES ('Brett Lee', 'Right Arm Fast', 221, 1176, 1407, 59, 83.58, 17.81, 0, 380, '5/22', 9, 11185, 4.76, 23.46);
+
+INSERT INTO CRIC_STATS(player_name,player_designation,matches,runs,balls_faced,highest_score,strike_rate,average,centuries,wickets,bowling_best,fifers,balls_bowled,economy,bowling_avg) VALUES ('Virender Sehwag', 'Right Hand Batsman', 251, 8273, 7929, 219, 104.3, 35.05, 15, 96, '4/6', 0, 4392, 5.26, 40.13);
+
+INSERT INTO CRIC_STATS(player_name,player_designation,matches,runs,balls_faced,highest_score,strike_rate,average,centuries,wickets,bowling_best,fifers,balls_bowled,economy,bowling_avg) VALUES ('Rahul Dravid', 'Right Hand Batsman', 344, 10889, 15285, 153, 71.23, 39.16, 12, 4, '2/43', 0, 186, 5.48, 42.50);
+
+INSERT INTO CRIC_STATS(player_name,player_designation,matches,runs,balls_faced,highest_score,strike_rate,average,centuries,wickets,bowling_best,fifers,balls_bowled,economy,bowling_avg) VALUES ('Ashish Nehra', 'Left Arm fast', 120, 141, 246, 24, 57.31, 5.64, 0, 157, '6/23', 2, 5751, 5.19, 36.6);
+
+INSERT INTO CRIC_STATS(player_name,player_designation,matches,runs,balls_faced,highest_score,strike_rate,average,centuries,wickets,bowling_best,fifers,balls_bowled,economy,bowling_avg) VALUES ('Jacques Kallis', 'Allrounder', 328, 11579, 15885, 139, 72.89, 44.36, 17, 273, '5/30', 2, 10750, 4.84, 31.79);
+
+INSERT INTO CRIC_STATS(player_name,player_designation,matches,runs,balls_faced,highest_score,strike_rate,average,centuries,wickets,bowling_best,fifers,balls_bowled,economy,bowling_avg) VALUES ('Mahela Jayawardene', 'Right Hand Batsman', 448, 12650, 16020, 144, 78.96, 33.37, 19, 8, '2/56', 0, 593, 5.69, 74.1);
+

@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	chatBtn = document.getElementById("chatBtn");
 	chatPop = document.getElementById("chat-popup");
 	closeChatBtn = document.getElementById("closeChatBtn");
+	clickSound = document.getElementById("clickSound");
 	
 	firstPlayerDisplay();
 	
@@ -33,21 +34,25 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	drawCardBtn.addEventListener("click", (e) => {
 		e.preventDefault();
+		clickSound.play();
 		drawCard();
 	});
 	
 	placeBtn.addEventListener("click", (e) => {
 		e.preventDefault();
+		clickSound.play();
 		placeCard();
 	});
 
 	submitBtn.addEventListener("click", (e) => {
 		e.preventDefault();
+		clickSound.play();
 		submitCard();
 	});
 	
 	resultBtn.addEventListener("click", (e) => {
 		e.preventDefault();
+		clickSound.play();
 		seeResult();
 	});	
 	
@@ -59,11 +64,17 @@ document.addEventListener('DOMContentLoaded', function() {
 	chatPop.style.display ="none";
 
 	chatBtn.addEventListener("click", (e) => {
-		chatPop.style.display = "block";
+		if(chatPop.style.display == "none") {
+			chatPop.style.display = "block";
+		} else {
+			chatPop.style.display = "none";
+		}
+		clickSound.play();
 	});	
 	
 	closeChatBtn.addEventListener("click", (e) => {
 		chatPop.style.display = "none";
+		clickSound.play();
 	});
 	
 	chatForm.addEventListener("submit", (e) => {
@@ -132,7 +143,7 @@ function submitCard() {
 			sendSubmitMsg();
 			resultBtn.disabled = 'true';
 			submitBtn.disabled = 'true';
-			printResult(winner, cardCount, gameOption);
+			printResult(winner, finalResult, gameOption);
 		}
 	})
 }
@@ -154,6 +165,7 @@ function seeResult() {
 			player = data.oppPlayer;
 			winner = data.winnerUser;
 			cardCount = data.cardCount;
+			finalResult = data.finalResult;
 			gameOption = data.option;
 			drawCardBtn.disabled = false;
 			oppPlayer.style.display = "inline";
@@ -163,7 +175,7 @@ function seeResult() {
 			placeBtn.disabled = 'true';
 			resultBtn.disabled = 'true';
 			submitBtn.disabled = 'true';
-			printResult(winner, cardCount, gameOption);
+			printResult(winner, finalResult, gameOption);
 		}
 	})
 }
@@ -199,15 +211,15 @@ function firstPlayerDisplay() {
 	}
 }
 
-function printResult(winner, cardCount, gameOption) {
+function printResult(winner, finalResult, gameOption) {
 	if(winner == uid.value) {
 		displayResult.textContent = 'New Card Added! ' + gameOption + ' is chosen';
 	} else {
 		displayResult.textContent = 'You lost a card! ' + gameOption + ' is chosen';
 	}
-	if(cardCount == 0) {
+	if(finalResult == "LOST") {
 		final.textContent = 'YOU LOST THE GAME! ' + gameOption + ' is chosen';
-	} else if(cardCount == 8) {
+	} else if(finalResult == "WON") {
 		final.textContent = 'YOU WON THE GAME! ' + gameOption + ' is chosen';
 	}	
 }

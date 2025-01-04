@@ -3,9 +3,12 @@
 	<title> Create New Room </title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 	</head>
-	<body th:style="'background-image:url(/img/cricketField.jpeg)'" class="homeBody">
+	<body th:style="'background-image:url(' + @{/img/cricketField.jpeg} + ')'" class="homeBody">
 		<div id="top"><h1> Create New Room </h1></div>
 		<div class="formStyle">
+		<div th:if="${(param.userError != null) and (param.userError[0] == 'roomExists')}" style='color: red;'>    
+                    Please choose another name, Room Name already exists
+        </div>
 		<br>
 		<form name="form" th:action="@{/register}" method="post">
 			<label for="roomId"> Room ID: </label>
@@ -14,6 +17,9 @@
 			<input type="password" id="password" name="password"><br><br>
 			<input type="submit" value="Submit!">
 		</form>
+		</div>
+		<div id="note">
+		<p> Note: You can only have two players in one room </p>
 		</div>
 	</body>
 </html>

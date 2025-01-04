@@ -5,6 +5,7 @@ public class MatchResult {
 	private int winnerUser;
 	private int cardCount;
 	private String option;
+	private String finalResult;
 
 	public String getOption() {
 		return option;
@@ -29,5 +30,11 @@ public class MatchResult {
 	}
 	public void setCardCount(int cardCount) {
 		this.cardCount = cardCount;
+	}
+	public String getFinalResult() {
+		return finalResult;
+	}
+	public void setFinalResult(String finalResult) {
+		this.finalResult = finalResult;
 	}
 }

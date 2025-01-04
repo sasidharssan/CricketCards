@@ -30,15 +30,15 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(customizer -> customizer.disable())
 			.authorizeHttpRequests(request -> request
-					.requestMatchers("/register").permitAll()
-					.requestMatchers("/img/**").permitAll()
-					.requestMatchers("/css/**").permitAll()
-					.anyRequest().authenticated())
+					.requestMatchers("/cricAttacksGame/**").authenticated()
+					.anyRequest().permitAll())
 			.formLogin(formLogin ->
-					formLogin.loginPage("/login")
+					formLogin.loginPage("/")
 					.permitAll()
 					.successForwardUrl("/loginProcess"))
-			.logout(Customizer.withDefaults());
+			.logout((logout) -> logout
+					.logoutSuccessUrl("/")
+					.permitAll());
 		return http.build();
 	}
 	

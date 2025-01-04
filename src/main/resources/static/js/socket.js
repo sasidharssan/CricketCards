@@ -1,5 +1,6 @@
 const hostAddress = location.host;
-const url = "ws://"+ hostAddress +"/spring-boot-cardgame";
+const contextPath = "/cricAttacks"
+const url = "ws://"+ hostAddress + contextPath +"/spring-boot-cardgame";
 const preUrl = "/user/";
 const signalUrl = "/topic/signal";
 const appSignal = "/app/signal";
@@ -51,6 +52,16 @@ document.addEventListener("DOMContentLoaded", function() {
 	if(document.getElementById("firstUser").textContent == "n")
 		document.getElementById("waitMsg").style.display = "none";
 	
+});
+
+document.addEventListener('readystatechange', event => { 
+	    // When window loaded ( external resources are loaded too- `css`,`src`, etc...) 
+	if (event.target.readyState === "complete") {
+		awaitConnect(5);
+	    if(document.getElementById("firstUser").textContent == "y") {
+	    	document.getElementById("startGame").disabled = 'true';
+		} 
+	}
 });
 
 window.addEventListener("beforeunload" , () => {

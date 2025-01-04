@@ -1,17 +1,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head> 
-		<title> Home </title>
-		<script type="text/javascript" th:src="@{/js/home.js}"></script>
+		<title> Cricket-Attacks </title>
+		<script type="text/javascript" th:src="@{/js/cricAttacks.js}"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
 		<script type="text/javascript" th:src="@{/js/socket.js}"></script>
 		<link rel="stylesheet" th:href="@{/css/main.css}" />
 	</head>
-	<body th:style="'background-image:url(/img/cricketField.jpeg)'" class="homeBody">
+	<body th:style="'background-image:url(' + @{/img/cricketField.jpeg} + ')'" class="homeBody">
 		<div id="top">
 		<p id="usernameText">You are logged in as <span id="usernamePrint" th:text = "${username}"></span><br>
 		Users in the room: <span th:text = "${allUsers}"></span></p>
 		<br>
-		<h1>Cricket Attacks</h1>
+		<h1 style="font-weight: bold;">Cricket Attacks</h1>
 			<h3> Welcome to <span th:text = "${roomId}"></span></h3>			
 			<form th:action="@{/logoutProcess}" method="post">
 				<input type="hidden" th:value="${roomId}" id= "roomId" name= "roomId">
@@ -23,7 +23,7 @@
 		</div>
 		<p id="count">count: <span th:text = "${count}"></span></p>
 		<p id="displayResult"></p>
-		<h3 id="final"></h3>
+		<h3 id="final" style="color: white;"></h3>
 		<p id="firstPlayer" th:text= "${firstPlayer}" style="display:none;"></p>
 		<br>
 		<div class="flexColumns">
@@ -163,4 +163,10 @@
 	});
 	</script>
 	<script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
+	<audio id="bgAudio" src="/sounds/time_machine-waterflame.mp3" autoplay loop></audio>
+	<audio id="clickSound" src="/sounds/mixkit-classic-click-1117.wav"></audio>
+	<script>
+  		var audio = document.getElementById("bgAudio");
+  		audio.volume = 0.1;
+	</script>
 </html>

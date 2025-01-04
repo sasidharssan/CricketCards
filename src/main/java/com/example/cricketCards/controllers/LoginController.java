@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import com.example.cricketCards.models.User;
 import com.example.cricketCards.services.RoomService;
 import com.example.cricketCards.services.StackService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -27,7 +29,7 @@ public class LoginController {
 	@Autowired
 	private StackService stackService;
 	
-	@RequestMapping(value="/login", method = RequestMethod.GET)
+	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String login() {
 		return "login.html";
 	}
@@ -38,15 +40,15 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
-	public ModelAndView loginProcess(@RequestParam(name="user") String name, @RequestParam(name="username") String id) {
+	public ModelAndView loginProcess(@RequestParam(name="user") String name, @RequestParam(name="username") String id, HttpSession session) {
 		int status = roomService.checkLoggedInStatus(name, id);
 		System.out.println("status: "+status);
 		int uid = 0;
 		ModelAndView mv = null;
 		if(status == 1)
-			return new ModelAndView("redirect:/login?userError=alreadylogged");
+			return new ModelAndView("redirect:/?userError=alreadylogged");
 		else if(status == 2) {
-			mv = new ModelAndView("redirect:/home");
+			mv = new ModelAndView("redirect:/cricAttacksGame");
 			User currentUser = stackService.getUserByName(id, name);
 			uid = currentUser.getUserId();
 		}
@@ -54,7 +56,7 @@ public class LoginController {
 			int userCount = roomService.getUserCount(id);
 			String firstUser = null;
 			if(userCount == 2) {
-				return new ModelAndView("redirect:/login?userError=tooManyUsers");
+				return new ModelAndView("redirect:/?userError=tooManyUsers");
 			} else if(userCount == 0) {
 				uid = roomService.addUser(name, id);
 				roomService.addFirstPlayer(uid, id);
@@ -62,17 +64,17 @@ public class LoginController {
 			} else {
 				List<String> userNames = roomService.getUserNames(id);
 				if(userNames.contains(name))
-					return new ModelAndView("redirect:/login?userError=nameExists");
+					return new ModelAndView("redirect:/?userError=nameExists");
 				uid = roomService.addUser(name, id);
 				Room room = roomService.findRoom(id);
 				int[] users = room.getUsers();
 				ArrayList<Integer> cards = new ArrayList<Integer>();
-				for(int i=1; i<=8; i++) {
+				for(int i=1; i<=16; i++) {
 					cards.add(i);
 				}
 				Collections.shuffle(cards);
-				int[] stackA = cards.subList(0, 4).stream().mapToInt(Integer::intValue).toArray();
-				int[] stackB = cards.subList(4, 8).stream().mapToInt(Integer::intValue).toArray();
+				int[] stackA = cards.subList(0, 8).stream().mapToInt(Integer::intValue).toArray();
+				int[] stackB = cards.subList(8, 16).stream().mapToInt(Integer::intValue).toArray();
 				stackService.addToStack(users[0], stackA);
 				stackService.addToStack(users[1], stackB);
 				firstUser = "n";
@@ -80,9 +82,9 @@ public class LoginController {
 		mv = new ModelAndView("instruction.html");
 		mv.addObject("firstUser", firstUser);
 		}
-		mv.addObject("username", name);
-		mv.addObject("roomId", id);
-		mv.addObject("userId", uid);
+		session.setAttribute("username", name);
+		session.setAttribute("roomId", id);
+		session.setAttribute("userId", uid);
 		return mv;
 		
 	}
@@ -93,8 +95,13 @@ public class LoginController {
 			System.out.println(bindingResult.getAllErrors());
 			return "register.html";
 		} else {
-			roomService.insertRoom(room);
-			return "redirect:/login";
+			try {
+				roomService.insertRoom(room);
+			} catch (DataIntegrityViolationException error) {
+				System.out.println(error);
+				return "redirect:/register?userError=roomExists";
+			}
+			return "redirect:/";
 		}
 	}
 	
@@ -102,7 +109,7 @@ public class LoginController {
 	public String logout(@RequestParam(name="username") String name, @RequestParam(name="roomId") String id) {
 		System.out.println("Processing Logout... ");
 		roomService.changeLoginStatus(name, id, 2);
-		return "redirect:/login";
+		return "redirect:/logout";
 	}
 		
 }

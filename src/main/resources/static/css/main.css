@@ -25,8 +25,9 @@
 
 #top {
 	color: pink;
-	font-family: 'Courier New', monospace;
+	font-family: 'KarmaticArcade', serif;
 }
+
 
 #old-top {
 	background-color: #90ee90;
@@ -91,6 +92,7 @@
 #chat-popup {
   position: fixed;
   right: 15px;
+  bottom: 20px;
   height: 50%;
   width: 20%;
   background-color: white;
@@ -106,4 +108,15 @@
 
 #displayResult{
 	color: pink;
+}
+
+@font-face {
+    font-family: KarmaticArcade;
+    src: url(/cricAttacks/fonts/KarmaticArcade.woff) format('woff');
+}
+
+#note{
+	background-color: white;
+	width: 25%;
+	border-radius: 2px;
 }
