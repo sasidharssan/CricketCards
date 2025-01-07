@@ -22,36 +22,36 @@ public class CricketServiceImpl implements CricketService {
 		CricketPlayer playerB = cricketDao.findById(playerId2).orElse(null);
 		switch(option) {
 			case "matches":
-				if(playerA.getMatches() > playerB.getMatches())
-					return 1;
+				if(playerA.getMatches() <= playerB.getMatches())
+					return 0;
 				break;
 			case "runs":
-				if(playerA.getRuns() > playerB.getRuns())
-					return 1;
+				if(playerA.getRuns() <= playerB.getRuns())
+					return 0;
 				break;
 			case "ballsFaced":
-				if(playerA.getBallsFaced() > playerB.getBallsFaced())
-					return 1;
+				if(playerA.getBallsFaced() <= playerB.getBallsFaced())
+					return 0;
 				break;
 			case "highest":
-				if(playerA.getHighest() > playerB.getHighest())
-					return 1;
+				if(playerA.getHighest() <= playerB.getHighest())
+					return 0;
 				break;
 			case "strikeRate":
-				if(playerA.getStrikeRate() > playerB.getStrikeRate())
-					return 1;
+				if(playerA.getStrikeRate() <= playerB.getStrikeRate())
+					return 0;
 				break;
 			case "batAverage":
-				if(playerA.getBatAverage() > playerB.getBatAverage())
-					return 1;
+				if(playerA.getBatAverage() <= playerB.getBatAverage())
+					return 0;
 				break;
 			case "centuries":
-				if(playerA.getCenturies() > playerB.getCenturies())
-					return 1;
+				if(playerA.getCenturies() <= playerB.getCenturies())
+					return 0;
 				break;
 			case "wickets":
-				if(playerA.getWickets() > playerB.getWickets())
-					return 1;
+				if(playerA.getWickets() <= playerB.getWickets())
+					return 0;
 				break;
 			case "best":
 				int[] bestA = bestFigures(playerA);
@@ -63,25 +63,27 @@ public class CricketServiceImpl implements CricketService {
 						return 1;
 					else
 						return 0;
-				} break;
+				} else {
+					return 0;
+				} 
 			case "fifers":
-				if(playerA.getFifers() > playerB.getFifers())
-					return 1;
+				if(playerA.getFifers() <= playerB.getFifers())
+					return 0;
 				break;
 			case "ballsBowled":
-				if(playerA.getBallsBowled() > playerB.getBallsBowled())
-					return 1;
+				if(playerA.getBallsBowled() <= playerB.getBallsBowled())
+					return 0;
 				break;
 			case "economy":
-				if(playerA.getEconomy() < playerB.getEconomy())
-					return 1;
+				if(playerA.getEconomy() >= playerB.getEconomy())
+					return 0;
 				break;
 			case "bowlingAverage":
-				if(playerA.getBowlAverage() < playerB.getBowlAverage())
-					return 1;
+				if(playerA.getBowlAverage() >= playerB.getBowlAverage())
+					return 0;
 				break;
 		}
-		return 0;
+		return 1;
 	}
 	
 	public int[] bestFigures(CricketPlayer playerA) {

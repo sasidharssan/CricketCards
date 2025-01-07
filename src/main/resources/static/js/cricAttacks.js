@@ -96,7 +96,7 @@ function drawCard() {
 	$.ajax({
 		type : 'POST',
 		datatype: 'json',
-		url: "/drawCard",
+		url: "/cricAttacks/drawCard",
 		data: draw,
 		cache: false,
 		timeout: 600000,
@@ -126,7 +126,7 @@ function submitCard() {
 	$.ajax({
 		type : 'POST',
 		datatype: 'json',
-		url: "/submit",
+		url: "/cricAttacks/submit",
 		data: input,
 		cache: false,
 		timeout: 600000,
@@ -157,7 +157,7 @@ function seeResult() {
 	$.ajax({
 		type : 'POST',
 		datatype: 'json',
-		url: "/result",
+		url: "/cricAttacks/result",
 		data: input,
 		cache: false,
 		timeout: 600000,

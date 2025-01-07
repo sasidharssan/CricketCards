@@ -54,6 +54,9 @@ class CricketCardsApplicationTests {
 		int out4 = cricketService.comparePlayers(4, 6, "economy");
 		assertThat(out4).isEqualTo(1);
 		
+		int out5 = cricketService.comparePlayers(4, 5, "centuries");
+		assertThat(out5).isEqualTo(0);
+		
 	}
 	
 	@Test
