@@ -134,6 +134,7 @@ function submitCard() {
 			player = data.oppPlayer;
 			winner = data.winnerUser;
 			cardCount = data.cardCount;
+			finalResult = data.finalResult;
 			drawCardBtn.disabled = false;
 			oppPlayer.style.display = "inline";
 			gameOption = option.value;
