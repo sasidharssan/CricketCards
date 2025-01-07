@@ -2,13 +2,13 @@ package com.example.cricketCards.models;
 
 import java.sql.Date;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public class Room {
-	@NotNull(message = "room ID is compulsory")
+	@NotEmpty(message = "room ID is compulsory")
 	private String roomId;
-	@NotNull(message = "password is mandatory")
+	@NotEmpty(message = "password is mandatory")
 	private String password;
 	private int[] users;
 

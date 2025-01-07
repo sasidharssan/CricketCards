@@ -93,7 +93,7 @@ public class LoginController {
 	public String registerRoom(@Valid Room room, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			System.out.println(bindingResult.getAllErrors());
-			return "register.html";
+			return "redirect:/register?userError=invalidCreds";
 		} else {
 			try {
 				roomService.insertRoom(room);
