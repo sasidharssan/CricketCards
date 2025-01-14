@@ -178,7 +178,15 @@ function sendChatMsg() {
 
 function showChatMessage(message) {
 	chatMessage = message.signal;
-	sender = message.user.username
+	sender = message.user.username;
+	chatPop = document.getElementById("chat-popup");
+	btnBadge = document.getElementById("btnBadge");
+	if(chatPop.style.display == "none") {
+		btnBadge.style.display = "inline";
+		btnBadge.textContent = parseInt(btnBadge.textContent) + 1;
+	} else {
+		btnBadge.style.display = "none";
+	}
 	document.getElementById("chats").innerHTML += "<p><span style='color:blue;'>"
 		+ sender + "</span>: " + chatMessage + "<br>";
 }

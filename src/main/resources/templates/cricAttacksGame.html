@@ -139,7 +139,10 @@
 			<button id="submitBtn" type="submit">Submit</button>
 			</form>
 		</div>
-		<button class="button" id="chatBtn">Chat</button>
+		<div id=chatBtnPart>
+			<p id=btnBadge style="display: none">0</p>
+			<button class="button" id="chatBtn">Chat</button>
+		</div>
 		<div id="chat-popup">
 			<form id="chatForm">
 				<h2>Chat: </h2>
@@ -163,8 +166,8 @@
 	});
 	</script>
 	<script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
-	<audio id="bgAudio" src="/sounds/time_machine-waterflame.mp3" autoplay loop></audio>
-	<audio id="clickSound" src="/sounds/mixkit-classic-click-1117.wav"></audio>
+	<audio id="bgAudio" src="cricAttacks/sounds/time_machine-waterflame.mp3" autoplay loop></audio>
+	<audio id="clickSound" src="cricAttacks/sounds/mixkit-classic-click-1117.wav"></audio>
 	<script>
   		var audio = document.getElementById("bgAudio");
   		audio.volume = 0.1;

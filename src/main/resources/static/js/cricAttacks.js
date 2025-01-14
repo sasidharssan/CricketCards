@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	chatPop = document.getElementById("chat-popup");
 	closeChatBtn = document.getElementById("closeChatBtn");
 	clickSound = document.getElementById("clickSound");
+	btnBadge = document.getElementById("btnBadge");
 	
 	firstPlayerDisplay();
 	
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		clickSound.play();
 		submitCard();
 	});
-	
+	chatPop
 	resultBtn.addEventListener("click", (e) => {
 		e.preventDefault();
 		clickSound.play();
@@ -66,6 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	chatBtn.addEventListener("click", (e) => {
 		if(chatPop.style.display == "none") {
 			chatPop.style.display = "block";
+			btnBadge.style.display = "none";
+			btnBadge.textContent = '0';
 		} else {
 			chatPop.style.display = "none";
 		}

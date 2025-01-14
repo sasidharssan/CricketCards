@@ -83,10 +83,21 @@
 	border-radius: 10px;
 }
 
-#chatBtn {
+#chatBtnPart {
 	position: absolute;
 	right: 0;
 	top: 0;
+}
+
+#chatBtn {
+	position: relative;
+}
+
+#btnBadge {
+	position: absolute;
+	left: 0;
+	background-color: red;
+	color: white;
 }
 
 #chat-popup {
