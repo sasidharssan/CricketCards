@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	firstPlayerDisplay();
 	
-	drawCardBtn.disabled = 'true';
+	drawCardBtn.disabled = true;
 	submitBtn.disabled = true;
 	oppPlayer.style.display = "none";
 	
@@ -145,6 +145,7 @@ function submitCard() {
 			count.textContent = "count: " + cardCount;
 			firstPlayer.textContent = winner;
 			sendSubmitMsg();
+			drawCardBtn.disabled = true;
 			resultBtn.disabled = 'true';
 			submitBtn.disabled = 'true';
 			printResult(winner, finalResult, gameOption);
@@ -153,6 +154,7 @@ function submitCard() {
 }
 
 function seeResult() {
+	sendResultMsg();
 	var input = {
 		"roomId" : room.value,
 		"uid" : uid.value

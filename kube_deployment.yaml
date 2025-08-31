@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cric-attacks
+  namespace: development
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cric-attacks
+  template:
+    metadata:
+      labels:
+        app: cric-attacks
+    spec:
+      containers:
+      - name: cric-attacks
+        image: sasidharssan/cric_attacks:latest
+        imagePullPolicy: Always
+        ports:
+          - name: cric-attacks
+            containerPort: 8080
+        resources:
+          limits: 
+            memory: 512Mi
+            cpu: 1
+        envFrom:
+          - secretRef:
+              name: db-variables
+      - name: postgres
+        image: sasidharssan/cric_attacks_db:latest
+        imagePullPolicy: Always
+        ports:
+        - name: postgres
+          containerPort: 5432
+        envFrom:
+          - secretRef:
+              name: db-variables

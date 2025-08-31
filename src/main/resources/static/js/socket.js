@@ -49,8 +49,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	roomId = document.getElementById('roomId');
 	uid = document.getElementById('userId');
 	
-	if(document.getElementById("firstUser").textContent == "n")
+	if(document.getElementById("firstUser").textContent == "n") {
 		document.getElementById("waitMsg").style.display = "none";
+		document.getElementById("startGame").disabled = false;
+	}
 	
 });
 
@@ -112,6 +114,9 @@ function showResult(message) {
 	if(message.signal == 'PLACED') {
 		document.getElementById('submitBtn').disabled = false;
 	}
+	if(message.signal == 'RESULT_VIEWED') {
+		document.getElementById('drawCardBtn').disabled = false;
+	}
 	if(message.signal == 'DISCONNECTED') {
 		alert(message.user.username + ' is disconnected!')
 	}
@@ -161,6 +166,14 @@ function sendPlacedMsg() {
 
 function sendDisconnectMsg() {
 	message = new Message(user, 'DISCONNECTED');
+		client.publish({
+			destination: appSignal,
+			body: JSON.stringify(message)
+		})
+}
+
+function sendResultMsg() {
+	message = new Message(user, 'RESULT_VIEWED');
 		client.publish({
 			destination: appSignal,
 			body: JSON.stringify(message)

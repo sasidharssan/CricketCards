@@ -67,6 +67,6 @@
 		<input type="hidden" th:value="${#ctx.session.username}" id="username" name="username">
 		<input type="hidden" th:value="${#ctx.session.userId}" id="userId" name="userId">
 
-		<button type="button" id="startGame" th:onclick="|window.location.href='/cricAttacks/cricAttacksGame'|">Start Game!</button>
+		<button type="button" id="startGame" disabled="true" th:onclick="|window.location.href='/cricAttacks/cricAttacksGame'|">Start Game!</button>
 	</body>
 </html>
