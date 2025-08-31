@@ -1,6 +1,9 @@
 const hostAddress = location.host;
 const contextPath = "/cricAttacks"
-const url = "ws://"+ hostAddress + contextPath +"/spring-boot-cardgame";
+url = "wss://"+ hostAddress + contextPath +"/spring-boot-cardgame";
+if (location.protocol == "http:") {
+	url = "ws://"+ hostAddress + contextPath +"/spring-boot-cardgame";
+} 
 const preUrl = "/user/";
 const signalUrl = "/topic/signal";
 const appSignal = "/app/signal";
