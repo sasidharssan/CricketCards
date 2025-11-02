@@ -1,0 +1,19 @@
+name: Cric Attacks Automation
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: build and push docker images
+        run: |
+          echo "${{ DOCKER_PASSWORD }}" | docker login --username "${{ DOCKER_USERNAME }}" --password-stdin
+          docker build -t ${{ DOCKER_USERNAME }}/cric_attacks .
+          docker build -t ${{ DOCKER_USERNAME }}/cric_attacks_db ./postgres
+          docker image ls
+          docker push ${{ DOCKER_USERNAME }}/cric_attacks
+          docker push ${{ DOCKER_USERNAME }}/cric_attacks_db
