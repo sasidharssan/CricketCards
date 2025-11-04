@@ -2,7 +2,7 @@ name: Cric Attacks Automation
 
 on:
   schedule:
-   - cron: "0 8,9 * * *"
+   - cron: "45 1,7 * * *"
 
 jobs:
   build:
