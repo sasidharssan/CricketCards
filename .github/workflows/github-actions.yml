@@ -1,8 +1,12 @@
 name: Cric Attacks Automation
 
+# on:
+#   schedule:
+#    - cron: "0 10,15 * * *"
+
 on:
-  schedule:
-   - cron: "0 10,15 * * *"
+  push:
+    branches: ["main"]
 
 jobs:
   build:
