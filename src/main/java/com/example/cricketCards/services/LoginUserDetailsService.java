@@ -19,7 +19,6 @@ public class LoginUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String roomId) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		System.out.println(roomId);
 		Room room = roomDao.findRoom(roomId);
 		
 		return new UserPrincipal(room);

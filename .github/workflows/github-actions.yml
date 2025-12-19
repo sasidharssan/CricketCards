@@ -21,3 +21,4 @@ jobs:
           docker image ls
           docker push ${{ secrets.DOCKER_USERNAME }}/cric_attacks
           docker push ${{ secrets.DOCKER_USERNAME }}/cric_attacks_db
+

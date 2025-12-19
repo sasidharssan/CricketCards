@@ -2,6 +2,8 @@ package com.example.cricketCards.controllers;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -34,6 +36,8 @@ public class GameController {
 	@Autowired
 	private CricketService cricketService;
 	
+	Logger logger = LogManager.getLogger(GameController.class);
+	
 	@RequestMapping(value = "/cricAttacksGame", method = RequestMethod.GET)
 	public String homepage(Model model, HttpSession session) {
 		String id = (String) session.getAttribute("roomId");
@@ -47,7 +51,7 @@ public class GameController {
 		int firstPlayer = stackService.getFirstPlayer(id).getUserId();
 		int cardCount = stackService.getCardCount(userId);
 		
-		System.out.println(session.getAttribute("username"));
+		logger.debug(session.getAttribute("username"));
 		
 		model.addAttribute("userId", userId);
 		model.addAttribute("roomId", id);
@@ -69,7 +73,7 @@ public class GameController {
 		int myTopCardId = stackService.getTopCard(userId);
 		int oppTopCardId = stackService.getTopCard(otherUser);
 		stackService.updateGame(roomId, myTopCardId, option);
-		
+		logger.debug("game info has been updated");
 		int outcome = cricketService.comparePlayers(myTopCardId, oppTopCardId, option);
 		
 		CricketPlayer oppPlayer = cricketService.getPlayerWithId(oppTopCardId);
@@ -77,10 +81,12 @@ public class GameController {
 		if(outcome == 0) {
 			cardCount = cardCount - 1;
 			result.setWinnerUser(otherUser);
+			logger.info("{} has got the cards", otherUser);
 		}
 		else {
 			cardCount = cardCount + 1;
 			result.setWinnerUser(userId);
+			logger.info("{} has got the cards", userId);
 		}
 		
 		result.setOppPlayer(oppPlayer);
@@ -102,9 +108,11 @@ public class GameController {
 		int userId = (int) session.getAttribute("userId");
 		MatchResult result = new MatchResult();
 		int myTopCardId = stackService.getTopCard(userId);
+		logger.debug("Topcard: ", myTopCardId);
 		GameInfo game = stackService.getFirstPlayer(roomId);
 		
 		int oppTopCardId = game.getCurrentCard();
+		logger.debug("Topcard2: ", oppTopCardId);
 		int otherUser = game.getUserId();
 		String option = game.getOption();
 		
@@ -119,12 +127,14 @@ public class GameController {
 			int[] cards = {myTopCardId, oppTopCardId};
 			stackService.addToStack(otherUser, cards);
 			result.setWinnerUser(otherUser);
+			logger.info("{} has got the cards", otherUser);
 		}
 		else {
 			int[] cards = {myTopCardId, oppTopCardId};
 			stackService.addToStack(userId, cards);
 			stackService.updateGameUser(roomId, userId);
 			result.setWinnerUser(userId);
+			logger.info("{} has got the cards", userId);
 		}
 		
 		int cardCount = stackService.getCardCount(userId);

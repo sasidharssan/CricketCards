@@ -2,6 +2,8 @@ package com.example.cricketCards.services;
 
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +18,14 @@ public class StackServiceImpl implements StackService {
 	
 	@Autowired
 	private StackInfoDao stackDao;
+	
+	Logger logger = LogManager.getLogger(StackService.class);
 
 	@Override
 	@Transactional(rollbackOn = SQLException.class)
 	public void addToStack(int uid, int[] playerIds) {
 		// TODO Auto-generated method stub
-		System.out.println("Adding new card to: " + uid);
+		logger.info("Adding new card to: " + uid);
 		stackDao.addToStack(uid, playerIds);
 	}
 
@@ -29,7 +33,7 @@ public class StackServiceImpl implements StackService {
 	@Transactional(rollbackOn = SQLException.class)
 	public void removeFromStack(int uid) {
 		// TODO Auto-generated method stub
-		System.out.println("Removing new card to: " + uid);
+		logger.info("Removing new card from: " + uid);
 		stackDao.removeFromStack(uid);
 	}
 
@@ -37,7 +41,7 @@ public class StackServiceImpl implements StackService {
 	@Transactional(rollbackOn = SQLException.class)
 	public void updateGame(String roomId, int playerId, String option) {
 		// TODO Auto-generated method stub
-		System.out.println("Next card: " + playerId);
+		logger.info("Next card: " + playerId);
 		stackDao.updateGame(roomId, playerId, option);
 	}
 
@@ -45,7 +49,7 @@ public class StackServiceImpl implements StackService {
 	@Transactional(rollbackOn = SQLException.class)
 	public void updateGameUser(String roomId, int uid) {
 		// TODO Auto-generated method stub
-		System.out.println("User control moves to: " + uid);
+		logger.info("User control moves to: " + uid);
 		stackDao.updateGameUser(roomId, uid);
 	}
 
@@ -53,7 +57,7 @@ public class StackServiceImpl implements StackService {
 	@Transactional(rollbackOn = SQLException.class)
 	public int getTopCard(int uid) {
 		// TODO Auto-generated method stub
-		System.out.println("getting card from: " + uid);
+		logger.info("getting card from: " + uid);
 		return stackDao.getTopCard(uid);
 	}
 
@@ -62,7 +66,7 @@ public class StackServiceImpl implements StackService {
 	public int getCardCount(int uid) {
 		// TODO Auto-generated method stub
 		int count = stackDao.getCardCount(uid);
-		System.out.println("Count: " + count);
+		logger.info("Card Count for {}: {}", count, uid);
 		return count;
 	}
 

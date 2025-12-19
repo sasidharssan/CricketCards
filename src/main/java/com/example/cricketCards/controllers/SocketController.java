@@ -2,6 +2,8 @@ package com.example.cricketCards.controllers;
 
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -29,14 +31,16 @@ public class SocketController {
 	@Autowired
 	private SimpMessagingTemplate simpMessagingTemplate;
 	
+	Logger logger = LogManager.getLogger(SocketController.class);
+	
 	@EventListener
 	public void handleSessionConnectEvent(SessionConnectEvent event) {
-		System.out.println("Session Connect Event");
+		logger.debug("Session Connect Event");
 	}
 	
 	@EventListener
 	public void handleSessionDisconnectEvent(SessionDisconnectEvent event) {
-		System.out.println("Session Disconnect Event");
+		logger.debug("Session Disconnect Event");
 	}
 	
 	@MessageMapping("/signal")
@@ -52,6 +56,7 @@ public class SocketController {
 					message.user().getRoom(), 2);
 		}
 		receiverId = roomService.findOtherUser(roomId, userId);
+		logger.debug("signal sent from {}", userId);
 		simpMessagingTemplate.convertAndSendToUser(String.valueOf(receiverId), "/topic/signal", newMessage);
 	}
 	
@@ -64,6 +69,7 @@ public class SocketController {
 				roomId, null, message.user().getLoggedIn()), 
 				message.signal());
 		receiverId = roomService.findOtherUser(roomId, userId);
+		logger.debug("message sent from {} to {}", userId, receiverId);
 		simpMessagingTemplate.convertAndSendToUser(String.valueOf(receiverId), "/topic/chat", newMessage);
 	}
 	

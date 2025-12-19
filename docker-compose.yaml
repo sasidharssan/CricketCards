@@ -10,7 +10,21 @@ services:
   cric-attacks:
     image: sasidharssan/cric_attacks:latest
     env_file: "./db_variables.env"
+    environment:
+      - LOG_VOLUME=/app/cricAttacks/cric_logs
     ports:
       - "8080:8080"
     depends_on:
       - postgresdb
+    volumes:
+      - /tmp/cric_logs:/app/cricAttacks/cric_logs
+
+  cribl-edge:
+    image: cribl/cribl:latest
+    ports:
+      - "9420:9420"
+    environment:
+      - CRIBL_VOLUME_DIR=/tmp/
+      - CRIBL_EDGE=1
+    volumes:
+      - /tmp/cric_logs:/tmp/cric_logs
