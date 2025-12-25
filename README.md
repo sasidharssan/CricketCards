@@ -1,5 +1,5 @@
 ### Cricket Cards
-Play this game on: http://ec2-13-60-78-14.eu-north-1.compute.amazonaws.com/cricAttacks/ 
+Play this game on: https://cool.sytes.net/cricAttacks 
 
 ### Introduction:
 
