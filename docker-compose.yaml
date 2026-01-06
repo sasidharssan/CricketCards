@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   postgresdb:
@@ -28,3 +28,4 @@ services:
       - CRIBL_EDGE=1
     volumes:
       - /tmp/cric_logs:/tmp/cric_logs
+      - /tmp/cribl:/tmp/
